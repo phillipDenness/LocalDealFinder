@@ -33,9 +33,11 @@ public enum Shopper {
         }
     }
 
-
-    public HttpURLConnection getConnection(){
-        return this.connection;
+    public Store getStore() {
+        return store;
     }
 
+    public ShoppingList getShoppingList() {
+        return shoppingList;
+    }
 }

@@ -1,6 +1,6 @@
 package com;
 
 public interface Store {
-    public String getUrl();
-    public void setUrl(String url);
+    String getUrl();
+    void setUrl(ShoppingList url);
 }
