@@ -21,9 +21,9 @@ public class App
         gumtree.setUrl(shopper.getShoppingList());
 
         shopper.setStore(gumtree);
-        Document doc = shopper.getBrowser().searchStore(shopper.getStore().getUrl());
+        Document doc = shopper.getBrowser().openPage(gumtree.getUrl());
 
-        ResponseScanner gumtreeResponseScanner = ResponseScannerFactory.getResponseScanner(shopper.getStore().getStoreType());
+        ResponseScanner gumtreeResponseScanner = ResponseScannerFactory.getResponseScanner(gumtree.getStoreType());
         gumtreeResponseScanner.scanSearchPage(doc);
 
         shopper.reviewAdverts(gumtreeResponseScanner.getAdverts());

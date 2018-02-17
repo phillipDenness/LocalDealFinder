@@ -52,7 +52,7 @@ public enum Shopper {
         for(Advert advert : adverts) {
             Boolean save = checkShortDescription(advert);
             if (save) {
-                Document doc = getBrowser().searchStore(advert.getLink());
+                Document doc = getBrowser().openPage(advert.getLink());
 
             }
         }

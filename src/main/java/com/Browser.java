@@ -7,7 +7,7 @@ import java.io.IOException;
 public enum Browser {
     INSTANCE;
 
-    public static Document searchStore (String urlString) {
+    public static Document openPage(String urlString) {
         try {
 
             Document doc = Jsoup.connect(urlString).get();
