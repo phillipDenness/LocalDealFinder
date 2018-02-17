@@ -6,4 +6,5 @@ public interface Store {
     String getPricePattern();
     String getLinkPattern();
     String getTitlePattern();
+    String getStoreType();
 }

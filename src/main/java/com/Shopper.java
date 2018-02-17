@@ -1,7 +1,10 @@
 package com;
 
+import org.jsoup.nodes.Document;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public enum Shopper {
     INSTANCE;
@@ -43,5 +46,33 @@ public enum Shopper {
 
     public ShoppingList getShoppingList() {
         return shoppingList;
+    }
+
+    public void reviewAdverts(ArrayList<Advert> adverts) {
+        for(Advert advert : adverts) {
+            Boolean save = checkShortDescription(advert);
+            if (save) {
+                Document doc = getBrowser().searchStore(advert.getLink());
+
+            }
+        }
+    }
+
+
+    private Boolean checkShortDescription(Advert advert) {
+        int requirements = shoppingList.requirements.size();
+        int requirementsMet = 0;
+
+        for (String requirement : shoppingList.requirements) {
+            if (requirement.toLowerCase().contains(advert.getShortDescription().toLowerCase())){
+                requirementsMet++;
+            }
+        }
+
+        if (requirementsMet >= requirements) {
+            return true;
+        }else{
+            return false;
+        }
     }
 }

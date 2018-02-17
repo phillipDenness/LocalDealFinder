@@ -1,8 +1,10 @@
 package com;
 
-public class ResponseScanner {
+import org.jsoup.nodes.Document;
+import java.util.ArrayList;
 
-    static String getAdvertName() {
-        return null;
-    }
+public interface ResponseScanner {
+    void scanSearchPage(Document doc);
+    void scanAdvertPage(Document doc);
+    ArrayList<Advert> getAdverts();
 }

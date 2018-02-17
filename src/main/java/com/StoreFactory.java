@@ -5,7 +5,7 @@ public class StoreFactory {
     {
         if ( criteria.equals("Gumtree") )
 
-            return new Gumtree();
+            return new Gumtree(criteria);
 
         else if ( criteria.equals("Shpock") )
 

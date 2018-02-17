@@ -9,11 +9,14 @@ public class Gumtree implements Store{
     private ArrayList<String> urlParams;
     private String baseUrl = "https://www.gumtree.com/search?";
     private String charset = "UTF-8";
-
+    private String storeType;
     private String pricePattern = "<meta content=\"(.*?)\" itemprop=\"price\"";
     private String linkPattern = "listing-link\" href=\"(.*?)\" itemprop=\"url";
     private String titlePattern = "<meta content=(.*?) itemprop=\"name\"";
 
+    public Gumtree(String storeType){
+        this.storeType = storeType;
+    }
     public String getUrl() {
         return this.urlString;
     }
@@ -56,5 +59,10 @@ public class Gumtree implements Store{
 
     public String getTitlePattern() {
         return titlePattern;
+    }
+
+    @Override
+    public String getStoreType() {
+        return storeType;
     }
 }

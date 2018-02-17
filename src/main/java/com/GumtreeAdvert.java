@@ -11,9 +11,17 @@ public class GumtreeAdvert implements Advert {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Double getPrice(){
+        return price;
     }
 
     @Override
@@ -21,8 +29,16 @@ public class GumtreeAdvert implements Advert {
         this.shortDescription = shortDescription;
     }
 
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
     @Override
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public String getLink() {
+        return link;
     }
 }

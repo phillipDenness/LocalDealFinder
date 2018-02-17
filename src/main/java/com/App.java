@@ -1,6 +1,6 @@
 package com;
 
-import java.io.IOException;
+import org.jsoup.nodes.Document;
 
 public class App
 {
@@ -18,18 +18,21 @@ public class App
                 .lookingFor("GTX 1080");
 
         shopper.setShoppingList(graphicsCardShopper);
-
         gumtree.setUrl(shopper.getShoppingList());
 
         shopper.setStore(gumtree);
-        shopper.getBrowser().searchStore(shopper.getStore().getUrl());
+        Document doc = shopper.getBrowser().searchStore(shopper.getStore().getUrl());
 
+        ResponseScanner gumtreeResponseScanner = ResponseScannerFactory.getResponseScanner(shopper.getStore().getStoreType());
+        gumtreeResponseScanner.scanSearchPage(doc);
+
+        shopper.reviewAdverts(gumtreeResponseScanner.getAdverts());
 
 
         //shopper.getBrowser().sendGetRequest(shopper.getStore().getUrl());
         //shopper.getBrowser().readResponse();
         //shopper.getBrowser().disconnect();
-        // ResponseScanner.
+        // ResponseScannerFactory.
 
 
 

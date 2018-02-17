@@ -33,4 +33,9 @@ public class Shpock implements Store {
     public String getTitlePattern() {
         return null;
     }
+
+    @Override
+    public String getStoreType() {
+        return null;
+    }
 }

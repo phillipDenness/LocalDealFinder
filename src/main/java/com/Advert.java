@@ -5,4 +5,9 @@ public interface Advert {
     void setPrice(Double price);
     void setShortDescription(String shortDescription);
     void setLink(String link);
+
+    String getName();
+    Double getPrice();
+    String getShortDescription();
+    String getLink();
 }

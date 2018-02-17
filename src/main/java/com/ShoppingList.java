@@ -7,7 +7,7 @@ public class ShoppingList {
         int minPrice;
         String location;
         String category;
-        ArrayList<String> shoppingList = new ArrayList<>(1);
+        ArrayList<String> requirements = new ArrayList<>(1);
         // other properties ...
 
         private ShoppingList() { }
@@ -37,7 +37,7 @@ public class ShoppingList {
         }
 
         public ShoppingList lookingFor(String item){
-            this.shoppingList.add(item);
+            this.requirements.add(item);
             return this;
         }
 
