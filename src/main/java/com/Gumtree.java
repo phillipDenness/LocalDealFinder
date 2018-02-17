@@ -8,6 +8,11 @@ public class Gumtree implements Store{
     private String urlString;
     private ArrayList<String> urlParams;
     private String baseUrl = "https://www.gumtree.com/search?";
+    private String charset = "UTF-8";
+
+    private String pricePattern = "<meta content=\"(.*?)\" itemprop=\"price\"";
+    private String linkPattern = "listing-link\" href=\"(.*?)\" itemprop=\"url";
+    private String titlePattern = "<meta content=(.*?) itemprop=\"name\"";
 
     public String getUrl() {
         return this.urlString;
@@ -28,16 +33,28 @@ public class Gumtree implements Store{
         this.urlParams = new ArrayList<>();
 
         try {
-            this.urlParams.add("search_location=" + URLEncoder.encode(shoppingList.location, "UTF-8"));
-            this.urlParams.add("search_category=" + URLEncoder.encode(shoppingList.category, "UTF-8"));
-            this.urlParams.add("min_price=" + URLEncoder.encode(Integer.toString(shoppingList.minPrice), "UTF-8"));
-            this.urlParams.add("max_price=" + URLEncoder.encode(Integer.toString(shoppingList.maxPrice), "UTF-8"));
+
+            this.urlParams.add("search_location=" + URLEncoder.encode(shoppingList.location, charset));
+            this.urlParams.add("search_category=" + URLEncoder.encode(shoppingList.category, charset));
+            this.urlParams.add("min_price=" + URLEncoder.encode(Integer.toString(shoppingList.minPrice), charset));
+            this.urlParams.add("max_price=" + URLEncoder.encode(Integer.toString(shoppingList.maxPrice), charset));
 
             this.urlString = buildUrl();
+
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }
 
+    public String getPricePattern() {
+        return pricePattern;
+    }
 
+    public String getLinkPattern() {
+        return linkPattern;
+    }
+
+    public String getTitlePattern() {
+        return titlePattern;
+    }
 }

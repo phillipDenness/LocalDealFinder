@@ -18,4 +18,19 @@ public class Shpock implements Store {
     public void setUrl(ShoppingList url) {
 
     }
+
+    @Override
+    public String getPricePattern() {
+        return null;
+    }
+
+    @Override
+    public String getLinkPattern() {
+        return null;
+    }
+
+    @Override
+    public String getTitlePattern() {
+        return null;
+    }
 }

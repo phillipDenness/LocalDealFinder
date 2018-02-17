@@ -11,6 +11,10 @@ public enum Shopper {
     private ShoppingList shoppingList;
     private Store store;
 
+    public Browser getBrowser() {
+        return Browser.INSTANCE;
+    }
+
     public void setStore(Store store){
         this.store = store;
     }

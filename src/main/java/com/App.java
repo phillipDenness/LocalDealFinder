@@ -6,7 +6,6 @@ public class App
 {
     public static void main( String[] args )
     {
-
         Shopper shopper = Shopper.INSTANCE;
         Store gumtree = StoreFactory.getStore("Gumtree");
 
@@ -21,10 +20,18 @@ public class App
         shopper.setShoppingList(graphicsCardShopper);
 
         gumtree.setUrl(shopper.getShoppingList());
-        shopper.setStore(gumtree);
 
-        Browser.sendGetRequest(shopper.getStore().getUrl());
-        Browser.readResponse();
+        shopper.setStore(gumtree);
+        shopper.getBrowser().searchStore(shopper.getStore().getUrl());
+
+
+
+        //shopper.getBrowser().sendGetRequest(shopper.getStore().getUrl());
+        //shopper.getBrowser().readResponse();
+        //shopper.getBrowser().disconnect();
+        // ResponseScanner.
+
+
 
     }
 }
