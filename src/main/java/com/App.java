@@ -2,6 +2,8 @@ package com;
 
 import org.jsoup.nodes.Document;
 
+import java.util.ArrayList;
+
 public class App
 {
     public static void main( String[] args )
@@ -9,32 +11,57 @@ public class App
         Shopper shopper = Shopper.INSTANCE;
         Store gumtree = StoreFactory.getStore("Gumtree");
 
+        Publisher logPublisher = PublisherFactory.getPublisher("Log");
+        PersistentHandler.setMode("Local");
+
+        ArrayList<ShoppingList> shoppingLists = new ArrayList<>();
         ShoppingList graphicsCardShopper = ShoppingList.create()
                 .maxPrice(310)
                 .minPrice(0)
                 .shoppingLocation("London")
                 .category("video-cards-sound-cards")
                 .lookingFor("GTX 1070")
-                .lookingFor("GTX 1080");
+                .lookingFor("GTX 1060")
+                .addException("GTX 960")
+                .addException("GTX 970");
+        shoppingLists.add(graphicsCardShopper);
 
-        shopper.setShoppingList(graphicsCardShopper);
-        gumtree.setUrl(shopper.getShoppingList());
+        ShoppingList gamingPc = ShoppingList.create()
+                .maxPrice(200)
+                .minPrice(0)
+                .shoppingLocation("London")
+                .category("desktop-workstation-pcs")
+                .lookingFor("i5")
+                .lookingFor("i7")
+                .lookingFor("ryzen")
+                .lookingFor("GTX 1060")
+                .lookingFor("GTX 970")
+                .addException("hp")
+                .addException("dell")
+                .addException("lenovo")
+                .addException("q6600")
+                .addException("apple")
+                .addException("Fujitsu")
+                .addException("mac")
+                .addException("packard");
+        shoppingLists.add(gamingPc);
 
-        shopper.setStore(gumtree);
-        Document doc = shopper.getBrowser().openPage(gumtree.getUrl());
+        for (ShoppingList shoppingList : shoppingLists) {
 
-        ResponseScanner gumtreeResponseScanner = ResponseScannerFactory.getResponseScanner(gumtree.getStoreType());
-        gumtreeResponseScanner.scanSearchPage(doc);
+            shopper.setShoppingList(shoppingList);
 
-        shopper.reviewAdverts(gumtreeResponseScanner.getAdverts());
+            gumtree.setUrl(shopper.getShoppingList());
 
+            shopper.setStore(gumtree);
+            Document doc = shopper.getBrowser().openPage(gumtree.getUrl());
 
-        //shopper.getBrowser().sendGetRequest(shopper.getStore().getUrl());
-        //shopper.getBrowser().readResponse();
-        //shopper.getBrowser().disconnect();
-        // ResponseScannerFactory.
+            ResponseScanner gumtreeResponseScanner = ResponseScannerFactory.getResponseScanner(gumtree.getStoreType());
+            gumtreeResponseScanner.scanSearchPage(doc);
 
-
+            shopper.setResponseScanner(gumtreeResponseScanner);
+            shopper.reviewAdverts(gumtreeResponseScanner.getAdverts());
+            logPublisher.writeFavouriteAdverts(shopper.getFavouriteAdverts());
+        }
 
     }
 }

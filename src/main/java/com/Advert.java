@@ -1,5 +1,7 @@
 package com;
 
+import org.jsoup.nodes.Document;
+
 public interface Advert {
     void setName(String name);
     void setPrice(Double price);
@@ -10,4 +12,8 @@ public interface Advert {
     Double getPrice();
     String getShortDescription();
     String getLink();
+
+    void setFullDescription(String fullDescription);
+    String getFullDescription();
+    Document viewAdvert();
 }

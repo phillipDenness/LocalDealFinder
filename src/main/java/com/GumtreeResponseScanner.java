@@ -20,17 +20,11 @@ public class GumtreeResponseScanner implements ResponseScanner{
         iterateAdverts(foundAdverts);
     }
 
-    @Override
-    public void scanAdvertPage(Document doc) {
-        
-    }
-
     private void iterateAdverts(Elements foundAdverts){
         for (int n = 3; n < foundAdverts.size(); n++) {
             //System.out.println(n);
             Element advertSummary = foundAdverts.get(n);
             buildAdvertObject(advertSummary);
-
         }
     }
 
@@ -42,11 +36,20 @@ public class GumtreeResponseScanner implements ResponseScanner{
         advert.setLink(advertSummary.attr("abs:href"));
         advert.setPrice(Double.parseDouble(advertSummary.select("meta").get(3).attr("content")));
 
-        adverts.add(advert);
-        //System.out.println(advert.getName());
+        Boolean isValid = PersistentHandler.checkIfAlreadySearched(advert.getLink(), PersistentHandler.previousLinks);
+
+        if (isValid) {
+            adverts.add(advert);
+        }
     }
 
     public ArrayList<Advert> getAdverts() {
         return adverts;
+    }
+
+    @Override
+    public String scanAdvertPage(Document doc) {
+        String fullDescription = doc.selectFirst("p.ad-description").text();
+        return fullDescription;
     }
 }

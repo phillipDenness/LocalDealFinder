@@ -1,10 +1,18 @@
 package com;
 
+import org.jsoup.nodes.Document;
+
 public class GumtreeAdvert implements Advert {
     private String name;
     private Double price;
     private String shortDescription;
     private String link;
+    private String fullDescription;
+
+    public Document viewAdvert() {
+        Document doc = Browser.openPage(this.getLink());
+        return doc;
+    }
 
     @Override
     public void setName(String name) {
@@ -40,5 +48,15 @@ public class GumtreeAdvert implements Advert {
 
     public String getLink() {
         return link;
+    }
+
+    @Override
+    public void setFullDescription(String fullDescription) {
+        this.fullDescription = fullDescription;
+    }
+
+    @Override
+    public String getFullDescription() {
+        return this.fullDescription;
     }
 }

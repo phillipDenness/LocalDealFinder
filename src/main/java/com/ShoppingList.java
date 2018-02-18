@@ -8,7 +8,8 @@ public class ShoppingList {
         String location;
         String category;
         ArrayList<String> requirements = new ArrayList<>(1);
-        // other properties ...
+        ArrayList<String> exceptions = new ArrayList<>(1);
+    // other properties ...
 
         private ShoppingList() { }
 
@@ -41,4 +42,13 @@ public class ShoppingList {
             return this;
         }
 
+        public ShoppingList addException(String item){
+            this.exceptions.add(item);
+            return this;
+        }
+
+    public ShoppingList build(Shopper shopper) {
+            shopper.setShoppingList(this);
+        return this;
+    }
 }

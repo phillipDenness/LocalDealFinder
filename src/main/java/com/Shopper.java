@@ -1,18 +1,19 @@
 package com;
 
 import org.jsoup.nodes.Document;
-
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
 public enum Shopper {
     INSTANCE;
 
-    private URL url;
-    private HttpURLConnection connection;
     private ShoppingList shoppingList;
     private Store store;
+    private ResponseScanner responseScanner;
+    private ArrayList<Advert> favouriteAdverts;
+
+    public void setResponseScanner(ResponseScanner responseScanner) {
+        this.responseScanner = responseScanner;
+    }
 
     public Browser getBrowser() {
         return Browser.INSTANCE;
@@ -26,45 +27,71 @@ public enum Shopper {
         this.shoppingList = shoppingList;
     }
 
-    public void visitStore(String urlString){
-
-        String location = this.shoppingList.location;
-        try {
-            this.url = new URL(urlString);
-            this.connection.setFollowRedirects(false);
-            this.connection = (HttpURLConnection) url.openConnection();
-            this.connection.setRequestMethod("GET");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Store getStore() {
-        return store;
-    }
-
     public ShoppingList getShoppingList() {
         return shoppingList;
     }
 
-    public void reviewAdverts(ArrayList<Advert> adverts) {
-        for(Advert advert : adverts) {
-            Boolean save = checkShortDescription(advert);
-            if (save) {
-                Document doc = getBrowser().openPage(advert.getLink());
+    public ArrayList<Advert> getFavouriteAdverts() {
+        return favouriteAdverts;
+    }
 
+    public void reviewAdverts(ArrayList<Advert> adverts) {
+        favouriteAdverts = new ArrayList<>(1);
+
+        for(Advert advert : adverts) {
+
+            Boolean passDescription = reviewString(advert.getShortDescription());
+            Boolean passName = reviewString(advert.getName());
+
+            if (passDescription && passName) {
+                Document doc = advert.viewAdvert();
+                String fullDescription = responseScanner.scanAdvertPage(doc);
+                advert.setFullDescription(fullDescription);
+                System.out.println(fullDescription);
+
+                Boolean save = reviewString(advert.getFullDescription());
+                    if (save) {
+                        favouriteAdverts.add(advert);
+                    }
             }
         }
     }
 
 
-    private Boolean checkShortDescription(Advert advert) {
+    private Boolean reviewString(String description) {
+        Boolean saveAdvert = false;
+        Boolean checkForExceptions = checkRequirements(description);
+
+        if (checkForExceptions) {
+             saveAdvert = checkExceptions(description);
+        }
+
+        return saveAdvert;
+    }
+
+    private Boolean checkExceptions(String description) {
+
+        Boolean save = true;
+        for (String excludeSearch : shoppingList.exceptions) {
+           // System.out.println(excludeSearch.toLowerCase());
+          //  System.out.println(description.toLowerCase());
+            if (description.toLowerCase().contains(excludeSearch.toLowerCase())){
+                save = false;
+                System.out.println("Denied");
+            }
+        }
+
+        return save;
+
+    }
+
+    private boolean checkRequirements(String description) {
         int requirements = shoppingList.requirements.size();
         int requirementsMet = 0;
+        requirements = 1;
 
         for (String requirement : shoppingList.requirements) {
-            if (requirement.toLowerCase().contains(advert.getShortDescription().toLowerCase())){
+            if (description.toLowerCase().contains(requirement.toLowerCase())){
                 requirementsMet++;
             }
         }
@@ -74,5 +101,6 @@ public enum Shopper {
         }else{
             return false;
         }
+
     }
 }
