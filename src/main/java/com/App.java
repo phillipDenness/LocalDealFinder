@@ -71,7 +71,7 @@ public class App
 
             }
             try {
-                Thread.sleep(4000);
+                Thread.sleep(300000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
