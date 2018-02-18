@@ -1,12 +1,22 @@
 package com;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class LogPublisher implements Publisher {
 
+    public static void updateTimeStamp(String logLocation) {
+        RandomAccessFile f = null;
+        try {
+            f = new RandomAccessFile(new File(logLocation), "rw");
+            f.seek(0); // to the beginning
+            String timeStamp =new java.util.Date().toString()+"\n";
+            f.write(timeStamp.getBytes());
+            f.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static void writeStringToFile(String outputLine, String logLocation) {
         BufferedWriter writer = null;
 

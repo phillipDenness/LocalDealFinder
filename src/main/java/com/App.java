@@ -2,6 +2,10 @@ package com;
 
 import org.jsoup.nodes.Document;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 public class App
@@ -46,22 +50,31 @@ public class App
                 .addException("packard");
         shoppingLists.add(gamingPc);
 
-        for (ShoppingList shoppingList : shoppingLists) {
+        while (true) {
+            LogPublisher.updateTimeStamp(PersistentHandler.favouriteAdverts);
+            for (ShoppingList shoppingList : shoppingLists) {
 
-            shopper.setShoppingList(shoppingList);
+                shopper.setShoppingList(shoppingList);
+                gumtree.setUrl(shopper.getShoppingList());
 
-            gumtree.setUrl(shopper.getShoppingList());
+                shopper.setStore(gumtree);
+                Document doc = shopper.getBrowser().openPage(gumtree.getUrl());
 
-            shopper.setStore(gumtree);
-            Document doc = shopper.getBrowser().openPage(gumtree.getUrl());
+                ResponseScanner gumtreeResponseScanner = ResponseScannerFactory.getResponseScanner(gumtree.getStoreType());
+                gumtreeResponseScanner.scanSearchPage(doc);
 
-            ResponseScanner gumtreeResponseScanner = ResponseScannerFactory.getResponseScanner(gumtree.getStoreType());
-            gumtreeResponseScanner.scanSearchPage(doc);
+                shopper.setResponseScanner(gumtreeResponseScanner);
+                shopper.reviewAdverts(gumtreeResponseScanner.getAdverts());
+                logPublisher.writeFavouriteAdverts(shopper.getFavouriteAdverts());
 
-            shopper.setResponseScanner(gumtreeResponseScanner);
-            shopper.reviewAdverts(gumtreeResponseScanner.getAdverts());
-            logPublisher.writeFavouriteAdverts(shopper.getFavouriteAdverts());
+                System.out.println();
+
+            }
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-
     }
 }

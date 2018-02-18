@@ -47,7 +47,7 @@ public enum Shopper {
                 Document doc = advert.viewAdvert();
                 String fullDescription = responseScanner.scanAdvertPage(doc);
                 advert.setFullDescription(fullDescription);
-                System.out.println(fullDescription);
+                //System.out.println(fullDescription);
 
                 Boolean save = reviewString(advert.getFullDescription());
                     if (save) {
