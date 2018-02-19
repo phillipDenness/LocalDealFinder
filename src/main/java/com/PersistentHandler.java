@@ -4,8 +4,16 @@ import java.io.*;
 import java.util.Scanner;
 
 public class PersistentHandler {
-    public static String previousLinks;
-    public static String favouriteAdverts;
+    private static String previousLinks;
+    private static String favouriteAdverts;
+
+    public static String getPreviousLInks(){
+        return previousLinks;
+    }
+
+    public static String getFavouriteAdverts(){
+        return favouriteAdverts;
+    }
 
     public static void setMode(String mode) {
         if (mode == "Local") {
@@ -14,30 +22,4 @@ public class PersistentHandler {
         }
     }
 
-    static Boolean checkIfAlreadySearched(String link,String logLocation) {
-
-        File file = new File(logLocation);
-        try {
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter(logLocation,true));
-            Scanner scanner = new Scanner(file);
-
-            while (scanner.hasNextLine()) {
-
-                String line = scanner.nextLine();
-                if(line.toLowerCase().contains(link.toLowerCase())) {
-                    return false;
-                }
-
-            }
-
-            LogPublisher.writeStringToFile(link,PersistentHandler.previousLinks);
-            return true;
-
-        } catch(IOException e) {
-            //handle this
-        }
-
-        return true;
-    }
 }

@@ -1,10 +1,7 @@
-package com;
+package com.factories;
 
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.util.ArrayList;
+import com.ResponseScanner;
+import com.gumtree.GumtreeResponseScanner;
 
 public class ResponseScannerFactory {
 

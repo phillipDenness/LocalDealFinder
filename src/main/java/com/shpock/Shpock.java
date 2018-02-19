@@ -1,4 +1,7 @@
-package com;
+package com.shpock;
+
+import com.ShoppingList;
+import com.Store;
 
 public class Shpock implements Store {
     public String getUrl(ShoppingList shoppingList) {

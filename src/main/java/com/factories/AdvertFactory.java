@@ -1,4 +1,7 @@
-package com;
+package com.factories;
+
+import com.Advert;
+import com.gumtree.GumtreeAdvert;
 
 public class AdvertFactory {
     public static Advert getAdvert(String criteria) {

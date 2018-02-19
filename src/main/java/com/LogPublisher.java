@@ -34,14 +34,13 @@ public class LogPublisher implements Publisher {
     @Override
     public void writeFavouriteAdverts(ArrayList<Advert> favouriteAdverts) {
         for (Advert advert : favouriteAdverts){
-            Boolean isValid = PersistentHandler.checkIfAlreadySearched(advert.getLink(),PersistentHandler.favouriteAdverts);
-            if (isValid) {
+
                 String outputLine = Double.toString(advert.getPrice());
                 outputLine += "," + advert.getName();
                 outputLine += "," + advert.getLink();
 
-                writeStringToFile(outputLine, PersistentHandler.favouriteAdverts);
-            }
+                writeStringToFile(outputLine, PersistentHandler.getFavouriteAdverts());
+
         }
     }
 }

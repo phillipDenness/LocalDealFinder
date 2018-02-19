@@ -1,4 +1,7 @@
-package com;
+package com.factories;
+
+import com.LogPublisher;
+import com.Publisher;
 
 public class PublisherFactory {
     public static Publisher getPublisher(String criteria) {
