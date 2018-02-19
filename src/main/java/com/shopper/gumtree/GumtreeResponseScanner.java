@@ -1,12 +1,17 @@
-package com;
+package com.shopper.gumtree;
 
+import com.shopper.Advert;
+import com.shopper.PersistentHandler;
+import com.shopper.ResponseScanner;
+import com.shopper.Validator;
+import com.shopper.factories.AdvertFactory;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 
-public class GumtreeResponseScanner implements ResponseScanner{
+public class GumtreeResponseScanner implements ResponseScanner {
 
     private ArrayList<Advert> adverts = new ArrayList<>();
     private String storeType;
@@ -15,20 +20,20 @@ public class GumtreeResponseScanner implements ResponseScanner{
         this.storeType = storeType;
     }
 
-    public void scanSearchPage(Document doc) {
+    public void scanSearchPage(Document doc, Validator validator) {
         Elements foundAdverts = doc.select("a.listing-link");
-        iterateAdverts(foundAdverts);
+        iterateAdverts(foundAdverts,validator);
     }
 
-    private void iterateAdverts(Elements foundAdverts){
+    private void iterateAdverts(Elements foundAdverts, Validator validator){
         for (int n = 3; n < foundAdverts.size(); n++) {
             //System.out.println(n);
             Element advertSummary = foundAdverts.get(n);
-            buildAdvertObject(advertSummary);
+            buildAdvertObject(advertSummary,validator);
         }
     }
 
-    public void buildAdvertObject(Element advertSummary) {
+    public void buildAdvertObject(Element advertSummary, Validator validator) {
         Advert advert = AdvertFactory.getAdvert(storeType);
 
         advert.setName(advertSummary.selectFirst("h2.listing-title").text());
@@ -36,8 +41,8 @@ public class GumtreeResponseScanner implements ResponseScanner{
         advert.setLink(advertSummary.attr("abs:href"));
         advert.setPrice(Double.parseDouble(advertSummary.select("meta").get(3).attr("content")));
 
-        Boolean isValid = PersistentHandler.checkIfAlreadySearched(advert.getLink(), PersistentHandler.previousLinks);
 
+        Boolean isValid = validator.checkIfAlreadySearched(advert.getLink(), PersistentHandler.getPreviousLInks());
         if (isValid) {
             adverts.add(advert);
         }

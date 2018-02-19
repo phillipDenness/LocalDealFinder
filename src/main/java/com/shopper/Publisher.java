@@ -1,4 +1,4 @@
-package com;
+package com.shopper;
 
 import java.util.ArrayList;
 

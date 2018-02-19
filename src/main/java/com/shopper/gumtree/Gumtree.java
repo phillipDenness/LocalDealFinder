@@ -1,10 +1,13 @@
-package com;
+package com.shopper.gumtree;
+
+import com.shopper.ShoppingList;
+import com.shopper.Store;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-public class Gumtree implements Store{
+public class Gumtree implements Store {
     private String urlString;
     private ArrayList<String> urlParams;
     private String baseUrl = "https://www.gumtree.com/search?";
@@ -37,10 +40,10 @@ public class Gumtree implements Store{
 
         try {
 
-            this.urlParams.add("search_location=" + URLEncoder.encode(shoppingList.location, charset));
-            this.urlParams.add("search_category=" + URLEncoder.encode(shoppingList.category, charset));
-            this.urlParams.add("min_price=" + URLEncoder.encode(Integer.toString(shoppingList.minPrice), charset));
-            this.urlParams.add("max_price=" + URLEncoder.encode(Integer.toString(shoppingList.maxPrice), charset));
+            this.urlParams.add("search_location=" + URLEncoder.encode(shoppingList.getLocation(), charset));
+            this.urlParams.add("search_category=" + URLEncoder.encode(shoppingList.getCategory(), charset));
+            this.urlParams.add("min_price=" + URLEncoder.encode(Integer.toString(shoppingList.getMinPrice()), charset));
+            this.urlParams.add("max_price=" + URLEncoder.encode(Integer.toString(shoppingList.getMaxPrice()), charset));
 
             this.urlString = buildUrl();
 

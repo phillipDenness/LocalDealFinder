@@ -1,10 +1,7 @@
-package com;
+package com.shopper.factories;
 
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.util.ArrayList;
+import com.shopper.ResponseScanner;
+import com.shopper.gumtree.GumtreeResponseScanner;
 
 public class ResponseScannerFactory {
 

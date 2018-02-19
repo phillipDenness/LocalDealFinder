@@ -1,4 +1,4 @@
-package com;
+package com.shopper;
 
 import org.jsoup.nodes.Document;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public enum Shopper {
         return favouriteAdverts;
     }
 
-    public void reviewAdverts(ArrayList<Advert> adverts) {
+    public void reviewAdverts(ArrayList<Advert> adverts,Validator validator) {
         favouriteAdverts = new ArrayList<>(1);
 
         for(Advert advert : adverts) {
@@ -51,7 +51,10 @@ public enum Shopper {
 
                 Boolean save = reviewString(advert.getFullDescription());
                     if (save) {
-                        favouriteAdverts.add(advert);
+                        Boolean isValid = validator.checkIfAlreadySearched(advert.getLink(),PersistentHandler.getFavouriteAdverts());
+                        if (isValid) {
+                            favouriteAdverts.add(advert);
+                        }
                     }
             }
         }
@@ -72,7 +75,7 @@ public enum Shopper {
     private Boolean checkExceptions(String description) {
 
         Boolean save = true;
-        for (String excludeSearch : shoppingList.exceptions) {
+        for (String excludeSearch : shoppingList.getExceptions()) {
            // System.out.println(excludeSearch.toLowerCase());
           //  System.out.println(description.toLowerCase());
             if (description.toLowerCase().contains(excludeSearch.toLowerCase())){
@@ -86,11 +89,11 @@ public enum Shopper {
     }
 
     private boolean checkRequirements(String description) {
-        int requirements = shoppingList.requirements.size();
+        int requirements = shoppingList.getRequirements().size();
         int requirementsMet = 0;
         requirements = 1;
 
-        for (String requirement : shoppingList.requirements) {
+        for (String requirement : shoppingList.getRequirements()) {
             if (description.toLowerCase().contains(requirement.toLowerCase())){
                 requirementsMet++;
             }

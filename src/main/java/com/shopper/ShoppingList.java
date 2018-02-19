@@ -1,4 +1,4 @@
-package com;
+package com.shopper;
 
 import java.util.ArrayList;
 
@@ -6,18 +6,41 @@ public class ShoppingList {
         int maxPrice;
         int minPrice;
         String location;
-        String category;
+        private String category;
         ArrayList<String> requirements = new ArrayList<>(1);
         ArrayList<String> exceptions = new ArrayList<>(1);
     // other properties ...
 
-        private ShoppingList() { }
-
+        private ShoppingList() {}
         public static ShoppingList create() {
             return new ShoppingList();
         }
 
-        public ShoppingList category(String category) {
+    public String getCategory() {
+        return category;
+    }
+
+    public int getMaxPrice() {
+        return maxPrice;
+    }
+
+    public int getMinPrice() {
+        return minPrice;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public ArrayList<String> getExceptions() {
+        return exceptions;
+    }
+
+    public ArrayList<String> getRequirements() {
+        return requirements;
+    }
+
+    public ShoppingList category(String category) {
             this.category = category;
             return this;
         }

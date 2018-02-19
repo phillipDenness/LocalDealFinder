@@ -1,4 +1,4 @@
-package com;
+package com.shopper;
 
 public interface Store {
     String getUrl();

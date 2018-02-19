@@ -1,20 +1,14 @@
-package com;
+package com.shopper;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
-public class PersistentHandler {
-    public static String previousLinks;
-    public static String favouriteAdverts;
+public class Validator {
 
-    public static void setMode(String mode) {
-        if (mode == "Local") {
-            previousLinks = "C:\\Users\\XPS\\Documents\\previousAdverts.log";
-            favouriteAdverts = "C:\\Users\\XPS\\Documents\\favouriteAdverts.log";
-        }
-    }
-
-    static Boolean checkIfAlreadySearched(String link,String logLocation) {
+    public Boolean checkIfAlreadySearched(String link,String logLocation) {
 
         File file = new File(logLocation);
         try {
@@ -31,7 +25,7 @@ public class PersistentHandler {
 
             }
 
-            LogPublisher.writeStringToFile(link,PersistentHandler.previousLinks);
+            LogPublisher.writeStringToFile(link,PersistentHandler.getPreviousLInks());
             return true;
 
         } catch(IOException e) {

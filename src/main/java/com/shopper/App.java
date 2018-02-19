@@ -1,11 +1,10 @@
-package com;
+package com.shopper;
 
+import com.shopper.factories.PublisherFactory;
+import com.shopper.factories.ResponseScannerFactory;
+import com.shopper.factories.StoreFactory;
 import org.jsoup.nodes.Document;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 public class App
@@ -16,6 +15,7 @@ public class App
         Store gumtree = StoreFactory.getStore("Gumtree");
 
         Publisher logPublisher = PublisherFactory.getPublisher("Log");
+        Validator validator = new Validator();
         PersistentHandler.setMode("Local");
 
         ArrayList<ShoppingList> shoppingLists = new ArrayList<>();
@@ -51,7 +51,7 @@ public class App
         shoppingLists.add(gamingPc);
 
         while (true) {
-            LogPublisher.updateTimeStamp(PersistentHandler.favouriteAdverts);
+            LogPublisher.updateTimeStamp(PersistentHandler.getFavouriteAdverts());
             for (ShoppingList shoppingList : shoppingLists) {
 
                 shopper.setShoppingList(shoppingList);
@@ -61,14 +61,11 @@ public class App
                 Document doc = shopper.getBrowser().openPage(gumtree.getUrl());
 
                 ResponseScanner gumtreeResponseScanner = ResponseScannerFactory.getResponseScanner(gumtree.getStoreType());
-                gumtreeResponseScanner.scanSearchPage(doc);
+                gumtreeResponseScanner.scanSearchPage(doc,validator);
 
                 shopper.setResponseScanner(gumtreeResponseScanner);
-                shopper.reviewAdverts(gumtreeResponseScanner.getAdverts());
+                shopper.reviewAdverts(gumtreeResponseScanner.getAdverts(), validator);
                 logPublisher.writeFavouriteAdverts(shopper.getFavouriteAdverts());
-
-                System.out.println();
-
             }
             try {
                 Thread.sleep(300000);
