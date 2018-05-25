@@ -1,7 +1,7 @@
-package com.shopper.factories;
+package shopperApp.factories;
 
-import com.shopper.Advert;
-import com.shopper.gumtree.GumtreeAdvert;
+import com.Advert;
+import shopperApp.gumtree.GumtreeAdvert;
 
 public class AdvertFactory {
     public static Advert getAdvert(String criteria) {

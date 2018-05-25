@@ -1,7 +1,7 @@
-package com.shopper.gumtree;
+package shopperApp.shopper.gumtree;
 
-import com.shopper.ShoppingList;
-import com.shopper.Store;
+import shopperApp.shopper.ShoppingList;
+import shopperApp.shopper.Store;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

@@ -1,4 +1,4 @@
-package com.shopper;
+package shopperApp.shopper;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

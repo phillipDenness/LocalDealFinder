@@ -1,4 +1,4 @@
-package com.shopper;
+package shopperApp;
 
 import java.io.BufferedWriter;
 import java.io.File;

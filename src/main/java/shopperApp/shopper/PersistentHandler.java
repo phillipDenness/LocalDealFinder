@@ -1,4 +1,4 @@
-package com.shopper;
+package shopperApp.shopper;
 
 import java.io.*;
 import java.util.Scanner;

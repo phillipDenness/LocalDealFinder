@@ -1,8 +1,8 @@
-package com.shopper;
+package shopperApp;
 
-import com.shopper.factories.PublisherFactory;
-import com.shopper.factories.ResponseScannerFactory;
-import com.shopper.factories.StoreFactory;
+import shopperApp.factories.PublisherFactory;
+import shopperApp.factories.ResponseScannerFactory;
+import shopperApp.factories.StoreFactory;
 import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.shopper;
+package shopperApp.shopper;
 
 import org.jsoup.nodes.Document;
 import java.util.ArrayList;

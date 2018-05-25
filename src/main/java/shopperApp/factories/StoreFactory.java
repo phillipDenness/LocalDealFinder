@@ -1,8 +1,8 @@
-package com.shopper.factories;
+package shopperApp.factories;
 
-import com.shopper.Store;
-import com.shopper.gumtree.Gumtree;
-import com.shopper.shpock.Shpock;
+import com.Store;
+import shopperApp.gumtree.Gumtree;
+import shopperApp.shpock.Shpock;
 
 public class StoreFactory {
     public static Store getStore(String criteria)

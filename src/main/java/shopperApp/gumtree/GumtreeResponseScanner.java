@@ -1,13 +1,11 @@
-package com.shopper.gumtree;
+package shopperApp.gumtree;
 
-import com.shopper.Advert;
-import com.shopper.PersistentHandler;
-import com.shopper.ResponseScanner;
-import com.shopper.Validator;
-import com.shopper.factories.AdvertFactory;
+import shopperApp.factories.AdvertFactory;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import shopperApp.PersistentHandler;
+import shopperApp.Validator;
 
 import java.util.ArrayList;
 

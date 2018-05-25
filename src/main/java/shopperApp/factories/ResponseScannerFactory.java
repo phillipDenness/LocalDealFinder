@@ -1,7 +1,7 @@
-package com.shopper.factories;
+package shopperApp.factories;
 
-import com.shopper.ResponseScanner;
-import com.shopper.gumtree.GumtreeResponseScanner;
+import com.ResponseScanner;
+import shopperApp.gumtree.GumtreeResponseScanner;
 
 public class ResponseScannerFactory {
 

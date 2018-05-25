@@ -1,7 +1,7 @@
-package com.shopper.gumtree;
+package shopperApp.gumtree;
 
-import com.shopper.Advert;
-import com.shopper.Browser;
+import com.Advert;
+import com.Browser;
 import org.jsoup.nodes.Document;
 
 public class GumtreeAdvert implements Advert {
