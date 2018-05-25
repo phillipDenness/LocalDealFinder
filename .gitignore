@@ -4,3 +4,5 @@
 \.idea/
 
 *.iml
+
+src/main/resources/mysql_local\.properties
