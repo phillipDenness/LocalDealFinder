@@ -1,14 +1,8 @@
-package com.shopper;
+package com;
 
-<<<<<<< HEAD:src/main/java/com/shopper/App.java
-import com.shopper.factories.PublisherFactory;
-import com.shopper.factories.ResponseScannerFactory;
-import com.shopper.factories.StoreFactory;
-=======
 import com.factories.PublisherFactory;
 import com.factories.ResponseScannerFactory;
 import com.factories.StoreFactory;
->>>>>>> master:src/main/java/com/App.java
 import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;
