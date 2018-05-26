@@ -8,16 +8,12 @@ public class ConnectionManager {
 
 	private static DatabaseConfiguration CONFIG;
 
-	static {
+	public static Connection getConnection() throws SQLException {
 		try {
 			CONFIG = new DatabaseConfiguration();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public static Connection getConnection() throws SQLException {
-		
 		if (CONFIG != null) {
 			String dbName = CONFIG.getDbName();
 			String userName = CONFIG.getUserName();
@@ -26,7 +22,6 @@ public class ConnectionManager {
 			String port = CONFIG.getPort();
 			String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" + dbName + "?user=" + userName + "&password="
 					+ password;
-
 			return DriverManager.getConnection(jdbcUrl);
 		}
 		

@@ -25,7 +25,6 @@ public class Validator {
 
             }
 
-            LogPublisher.writeStringToFile(link,PersistentHandler.getPreviousLInks());
             return true;
 
         } catch(IOException e) {

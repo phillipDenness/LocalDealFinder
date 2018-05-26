@@ -6,10 +6,12 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import shopperApp.PersistentHandler;
 import shopperApp.Validator;
+import shopperApp.shopper.Advert;
+import shopperApp.shopper.ResponseScanner;
 
 import java.util.ArrayList;
 
-public class GumtreeResponseScanner implements ResponseScanner {
+public class GumtreeResponseScanner {
 
     private ArrayList<Advert> adverts = new ArrayList<>();
     private String storeType;
@@ -50,7 +52,6 @@ public class GumtreeResponseScanner implements ResponseScanner {
         return adverts;
     }
 
-    @Override
     public String scanAdvertPage(Document doc) {
         String fullDescription = doc.selectFirst("p.ad-description").text();
         return fullDescription;

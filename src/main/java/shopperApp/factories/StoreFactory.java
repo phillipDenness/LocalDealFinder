@@ -1,7 +1,7 @@
 package shopperApp.factories;
 
-import com.Store;
 import shopperApp.gumtree.Gumtree;
+import shopperApp.shopper.Store;
 import shopperApp.shpock.Shpock;
 
 public class StoreFactory {
@@ -13,7 +13,7 @@ public class StoreFactory {
 
         else if ( criteria.equals("Shpock") )
 
-            return new Shpock();
+            return (Store) new Shpock();
 
         return null;
     }

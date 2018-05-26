@@ -12,7 +12,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Searcher" target="1.7" />
-      <module name="Shopper" target="1.7" />
+      <module name="Shopper" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>

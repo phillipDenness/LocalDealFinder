@@ -1,7 +1,8 @@
 package shopperApp.factories;
 
-import com.LogPublisher;
-import com.Publisher;
+
+import shopperApp.shopper.LogPublisher;
+import shopperApp.shopper.Publisher;
 
 public class PublisherFactory {
     public static Publisher getPublisher(String criteria) {
