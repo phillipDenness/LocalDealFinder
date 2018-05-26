@@ -4,7 +4,7 @@ public class Advert {
 
     private int id;
     private String title;
-    private int price;
+    private double price;
     private String link;
 
     public Advert withId(int id) {
@@ -17,7 +17,7 @@ public class Advert {
         return this;
     }
 
-    public Advert withPrice(int price) {
+    public Advert withPrice(double price) {
         this.price = price;
         return this;
     }
@@ -35,7 +35,7 @@ public class Advert {
         return title;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 

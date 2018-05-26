@@ -11,10 +11,14 @@ import static junit.framework.TestCase.assertTrue;
 
 public class TestAdvertDAO {
     private AdvertDAO advertDAO;
+    private Advert advert;
 
     @Before
     public void setup(){
         advertDAO = new AdvertDAO();
+        advert = new Advert().withTitle("testTitle")
+                .withLink("http://foo.bar/b")
+                .withPrice(99.99);
     }
 
     @Test
@@ -22,6 +26,24 @@ public class TestAdvertDAO {
         Optional<List<Advert>> advertsOptional = advertDAO.readAll();
 
         assertTrue(advertsOptional.isPresent());
-        System.out.println(advertsOptional.get().get(0).getTitle());
+    }
+
+    @Test
+    public void testCreateAdvertSuccess(){
+        boolean success = advertDAO.create(advert);
+        assertTrue(success);
+    }
+
+    @Test
+    public void testReadAdvertSuccess() throws SQLException {
+        Optional<Advert> optionalAdvert = advertDAO.read(advert);
+
+        assertTrue(optionalAdvert.isPresent());
+    }
+
+    @Test
+    public void testDeleteAdvertSuccess(){
+        boolean success = advertDAO.delete(advert);
+        assertTrue(success);
     }
 }
