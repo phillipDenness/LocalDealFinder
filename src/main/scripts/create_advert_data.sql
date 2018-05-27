@@ -1,0 +1,1 @@
+insert into ldf.advert values(1,"test_advert",99,"http://gumtree.com/someurl");

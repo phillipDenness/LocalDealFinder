@@ -37,7 +37,15 @@ public class TestAdvertDAO {
     }
 
     @Test
-    public void testReadAdvertSuccess() throws SQLException {
+    public void testReadAdvertWithIdSuccess() throws SQLException {
+        Advert advert = new Advert().withId(1);
+        Optional<Advert> optionalAdvert = advertDAO.read(advert);
+
+        assertTrue(optionalAdvert.isPresent());
+    }
+
+    @Test
+    public void testReadAdvertWithLinkSuccess() throws SQLException {
         Optional<Advert> optionalAdvert = advertDAO.read(advert);
 
         assertTrue(optionalAdvert.isPresent());
