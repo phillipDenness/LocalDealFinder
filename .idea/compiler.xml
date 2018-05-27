@@ -6,13 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Searcher" />
-        <module name="Shopper" />
+        <module name="localdealfinder" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Searcher" target="1.7" />
-      <module name="Shopper" target="1.7" />
+      <module name="localdealfinder" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
