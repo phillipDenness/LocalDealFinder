@@ -1,4 +1,4 @@
-package com.localdealfinder;
+package com.localdealfinder.model;
 
 public class Advert {
 

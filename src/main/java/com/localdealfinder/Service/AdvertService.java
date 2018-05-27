@@ -1,6 +1,6 @@
 package com.localdealfinder.Service;
 
-import com.localdealfinder.Advert;
+import com.localdealfinder.model.Advert;
 import com.localdealfinder.database.AdvertDAO;
 
 import java.sql.SQLException;

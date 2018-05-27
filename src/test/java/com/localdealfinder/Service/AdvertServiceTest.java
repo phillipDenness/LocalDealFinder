@@ -1,6 +1,6 @@
 package com.localdealfinder.Service;
 
-import com.localdealfinder.Advert;
+import com.localdealfinder.model.Advert;
 import org.junit.Before;
 import org.junit.Test;
 
