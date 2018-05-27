@@ -21,7 +21,6 @@ public class UserAdvertJnDAO {
             PreparedStatement pstmt = con.prepareStatement(sql)){
 
             pstmt.setInt(1, user.getId());
-            System.out.println(pstmt);
             rs = pstmt.executeQuery();
 
             if(rs.next()){
