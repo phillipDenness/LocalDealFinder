@@ -1,0 +1,1 @@
+insert into ldf.user values(1, "test_user");

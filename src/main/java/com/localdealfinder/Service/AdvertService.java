@@ -1,6 +1,6 @@
 package com.localdealfinder.Service;
 
-import com.localdealfinder.Advert;
+import com.localdealfinder.model.Advert;
 import com.localdealfinder.database.AdvertDAO;
 
 import java.sql.SQLException;
@@ -29,24 +29,22 @@ public class AdvertService {
         return dao.create(advert);
     }
 
-    public Optional<Advert> read(int id){
-        Advert advert = new Advert().withId(id);
+    public Optional<Advert> read(int id) throws IllegalArgumentException{
 
         Optional<Advert> advertOptional = null;
         try {
-            advertOptional = dao.read(advert);
+            advertOptional = dao.read( new Advert().withId(id));
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return advertOptional;
     }
 
-    public Optional<Advert> read(String link){
-        Advert advert = new Advert().withLink(link);
+    public Optional<Advert> read(String link) throws IllegalArgumentException{
 
         Optional<Advert> advertOptional = null;
         try {
-            advertOptional = dao.read(advert);
+            advertOptional = dao.read(new Advert().withLink(link));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -63,7 +61,7 @@ public class AdvertService {
         return advertsOptional;
     }
 
-    public boolean delete(Advert advert){
-        return dao.delete(advert);
+    public boolean delete(String link){
+        return dao.delete(new Advert().withLink(link));
     }
 }

@@ -1,19 +1,19 @@
 package com.localdealfinder.database;
 
 import com.localdealfinder.model.Advert;
+import com.localdealfinder.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AdvertDAO {
-
-    public Optional<List<Advert>> readAll() throws SQLException {
+public class UserDAO {
+    public Optional<List<User>> readAll() throws SQLException {
         String sql = "SELECT *" +
-                " FROM ldf.advert";
+                " FROM ldf.user";
 
-        List<Advert> adverts = null;
+        List<User> users = null;
         ResultSet rs = null;
         try(Connection con = ConnectionManager.getConnection();
             Statement stmt = con.createStatement()){
@@ -21,38 +21,34 @@ public class AdvertDAO {
             rs = stmt.executeQuery(sql);
 
             if(rs.next()){
-                adverts = new ArrayList<>();
+                users = new ArrayList<>();
                 rs.beforeFirst();
             }
 
             while(rs.next()){
-                Advert advert = new Advert().withId(rs.getInt(1))
-                        .withTitle(rs.getString(2))
-                        .withPrice(rs.getInt(3))
-                        .withLink(rs.getString(4));
-                adverts.add(advert);
+                User user = new User().withId(rs.getInt(1))
+                        .withAlias(rs.getString(2));
+                users.add(user);
             }
 
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }finally {
             rs.close();
-            return Optional.ofNullable(adverts);
+            return Optional.ofNullable(users);
         }
     }
 
 
-    public boolean create(Advert advert){
+    public boolean create(User user){
 
-        String sql = "INSERT INTO ldf.advert(advert_title, advert_price, advert_link) " +
-                " VALUES(?,?,?)";
+        String sql = "INSERT INTO ldf.user(alias) " +
+                " VALUES(?)";
 
         try(Connection con = ConnectionManager.getConnection();
             PreparedStatement pstmt = con.prepareStatement(sql)){
 
-            pstmt.setString(1, advert.getTitle());
-            pstmt.setDouble(2, advert.getPrice());
-            pstmt.setString(3, advert.getLink());
+            pstmt.setString(1, user.getAlias());
             int affectedRows = pstmt.executeUpdate();
             return (affectedRows == 1);
 
@@ -62,15 +58,15 @@ public class AdvertDAO {
         }
     }
 
-    public boolean delete(Advert advert) {
+    public boolean delete(User user) {
 
-        String sql = "DELETE FROM ldf.advert" +
-                " WHERE advert_link = ?";
+        String sql = "DELETE FROM ldf.user" +
+                " WHERE alias = ?";
 
         try(Connection con = ConnectionManager.getConnection();
             PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-            pstmt.setString(1, advert.getLink());
+            pstmt.setString(1, user.getAlias());
             int affectedRows = pstmt.executeUpdate();
             return (affectedRows == 1);
 
@@ -80,14 +76,14 @@ public class AdvertDAO {
         }
     }
 
-    public Optional<Advert> read(Advert advert) throws SQLException, IllegalArgumentException {
+    public Optional<User> read(User user) throws SQLException, IllegalArgumentException {
         String sql;
         boolean useId = false;
-        if (advert.getId() != 0) {
-            sql = "SELECT * FROM ldf.advert WHERE advert_id = ?";
+        if (user.getId() != 0) {
+            sql = "SELECT * FROM ldf.user WHERE user_id = ?";
             useId = true;
-        } else if (advert.getLink() != null)
-            sql = "SELECT * FROM ldf.advert WHERE advert_link = ?";
+        } else if (user.getAlias() != null)
+            sql = "SELECT * FROM ldf.user WHERE alias = ?";
         else
             throw new IllegalArgumentException("Advert object is missing mandatory parameters");
 
@@ -96,20 +92,18 @@ public class AdvertDAO {
             PreparedStatement pstmt = con.prepareStatement(sql)) {
 
             if (useId)
-                pstmt.setInt(1, advert.getId());
+                pstmt.setInt(1, user.getId());
             else
-                pstmt.setString(1, advert.getLink());
+                pstmt.setString(1, user.getAlias());
 
             rs = pstmt.executeQuery();
 
             while (rs.next()){
-                advert.withId(rs.getInt(1));
-                advert.withTitle(rs.getString(2));
-                advert.withPrice(rs.getDouble(3));
-                advert.withLink(rs.getString(4));
+                user.withId(rs.getInt(1));
+                user.withAlias(rs.getString(2));
             }
 
-            return Optional.ofNullable(advert);
+            return Optional.ofNullable(user);
         }catch (SQLException e){
             System.out.println(e.getMessage());
             return null;
