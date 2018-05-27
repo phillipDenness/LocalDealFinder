@@ -1,7 +1,6 @@
 package com.localdealfinder.database;
 
 import com.localdealfinder.Advert;
-import com.localdealfinder.database.AdvertDAO;
 import org.junit.Before;
 import org.junit.Test;
 
