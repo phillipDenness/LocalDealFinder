@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import static junit.framework.TestCase.assertTrue;
 
-public class AdvertServiceTest {
+public class TestAdvertService {
     private AdvertService advertService;
 
     @Before
