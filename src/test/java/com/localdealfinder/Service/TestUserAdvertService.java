@@ -31,5 +31,4 @@ public class TestUserAdvertService {
         boolean success = userAdvertService.delete(1,2);
         assertTrue(success);
     }
-
 }
