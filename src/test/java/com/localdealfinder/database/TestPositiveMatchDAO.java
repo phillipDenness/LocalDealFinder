@@ -11,46 +11,46 @@ import java.util.Optional;
 import static junit.framework.TestCase.assertTrue;
 
 public class TestPositiveMatchDAO {
-    private PositiveMatchDAO positiveMatchDAO;
+    private PositiveMatchDAO dao;
     private PositiveMatch positiveMatch;
 
     @Before
     public void setup(){
-        positiveMatchDAO = new PositiveMatchDAO();
+        dao = new PositiveMatchDAO();
         positiveMatch = new PositiveMatch().withName("JUNIT_TEST1");
     }
 
     @Test
-    public void testReadAllPositiveMatchesSuccess() throws SQLException {
-        Optional<List<PositiveMatch>> advertsOptional = positiveMatchDAO.readAll();
+    public void testReadAllPositiveMatchesSuccess(){
+        Optional<List<PositiveMatch>> advertsOptional = dao.readAll();
 
         assertTrue(advertsOptional.isPresent());
     }
 
     @Test
-    public void testCreateAdvertSuccess(){
-        boolean success = positiveMatchDAO.create(positiveMatch);
+    public void testCreatePositiveMatchSuccess(){
+        boolean success = dao.create(positiveMatch);
         assertTrue(success);
     }
 
     @Test
-    public void testReadAdvertWithIdSuccess() throws SQLException {
+    public void testReadPositiveMatchWithIdSuccess() throws SQLException {
         PositiveMatch positiveMatch = new PositiveMatch().withId(1);
-        Optional<PositiveMatch> optionalAdvert = positiveMatchDAO.read(positiveMatch);
+        Optional<PositiveMatch> optionalAdvert = dao.read(positiveMatch);
 
         assertTrue(optionalAdvert.isPresent());
     }
 
     @Test
-    public void testReadAdvertWithLinkSuccess() throws SQLException {
-        Optional<PositiveMatch> optionalAdvert = positiveMatchDAO.read(positiveMatch);
+    public void testReadPositiveMatchWithLinkSuccess() throws SQLException {
+        Optional<PositiveMatch> optionalAdvert = dao.read(positiveMatch);
 
         assertTrue(optionalAdvert.isPresent());
     }
 
     @Test
-    public void testDeleteAdvertSuccess(){
-        boolean success = positiveMatchDAO.delete(positiveMatch);
+    public void testDeletePositiveMatchSuccess(){
+        boolean success = dao.delete(positiveMatch);
         assertTrue(success);
     }
 }
