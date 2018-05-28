@@ -26,15 +26,16 @@ public class UserAdvertService {
         return dao.create(new User().withId(user_id), new Advert().withId(advert_id));
     }
 
-    public Optional<List<Advert>> readAll(int user_id){
+    public User readAll(int user_id){
 
         Optional<List<Advert>> advertsOptional = null;
+        User user = new User().withId(user_id);
         try {
-            advertsOptional = dao.readAll(new User().withId(user_id));
+            user = dao.readAll(user);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return advertsOptional;
+        return user;
     }
 
     public boolean delete(int user_id, int advert_id){
