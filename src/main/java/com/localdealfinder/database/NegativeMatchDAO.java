@@ -1,51 +1,51 @@
 package com.localdealfinder.database;
 
-import com.localdealfinder.model.PositiveMatch;
+import com.localdealfinder.model.NegativeMatch;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class PositiveMatchDAO {
+public class NegativeMatchDAO {
 
-    public Optional<List<PositiveMatch>> readAll() {
+    public Optional<List<NegativeMatch>> readAll() {
         String sql = "SELECT *" +
-                " FROM ldf.positive_match";
+                " FROM ldf.negative_match";
 
-        List<PositiveMatch> positiveMatches = null;
+        List<NegativeMatch> negativeMatches = null;
         try(Connection con = ConnectionManager.getConnection();
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql)){
 
             if(rs.next()){
-                positiveMatches = new ArrayList<>();
+                negativeMatches = new ArrayList<>();
                 rs.beforeFirst();
             }
 
             while(rs.next()){
-                PositiveMatch positiveMatch = new PositiveMatch().withId(rs.getInt(1))
+                NegativeMatch negativeMatch = new NegativeMatch().withId(rs.getInt(1))
                         .withName(rs.getString(2));
 
-                positiveMatches.add(positiveMatch);
+                negativeMatches.add(negativeMatch);
             }
 
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }finally {
-            return Optional.ofNullable(positiveMatches);
+            return Optional.ofNullable(negativeMatches);
         }
     }
 
-    public boolean create(PositiveMatch positiveMatch){
+    public boolean create(NegativeMatch negativeMatch){
 
-        String sql = "INSERT INTO ldf.positive_match(name) " +
+        String sql = "INSERT INTO ldf.negative_match(name) " +
                 " VALUES(?)";
 
         try(Connection con = ConnectionManager.getConnection();
             PreparedStatement pstmt = con.prepareStatement(sql)){
 
-            pstmt.setString(1, positiveMatch.getName());
+            pstmt.setString(1, negativeMatch.getName());
             int affectedRows = pstmt.executeUpdate();
             return (affectedRows == 1);
 
@@ -55,15 +55,15 @@ public class PositiveMatchDAO {
         }
     }
 
-    public boolean delete(PositiveMatch positiveMatch) {
+    public boolean delete(NegativeMatch negativeMatch) {
 
-        String sql = "DELETE FROM ldf.positive_match" +
+        String sql = "DELETE FROM ldf.negative_match" +
                 " WHERE name = ?";
 
         try(Connection con = ConnectionManager.getConnection();
             PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-            pstmt.setString(1, positiveMatch.getName());
+            pstmt.setString(1, negativeMatch.getName());
             int affectedRows = pstmt.executeUpdate();
             return (affectedRows == 1);
 
@@ -73,14 +73,14 @@ public class PositiveMatchDAO {
         }
     }
 
-    public Optional<PositiveMatch> read(PositiveMatch positiveMatch) throws SQLException, IllegalArgumentException {
+    public Optional<NegativeMatch> read(NegativeMatch negativeMatch) throws SQLException, IllegalArgumentException {
         String sql;
         boolean useId = false;
-        if (positiveMatch.getId() != 0) {
-            sql = "SELECT * FROM ldf.positive_match WHERE positive_id = ?";
+        if (negativeMatch.getId() != 0) {
+            sql = "SELECT * FROM ldf.negative_match WHERE negative_id = ?";
             useId = true;
-        } else if (positiveMatch.getName() != null)
-            sql = "SELECT * FROM ldf.positive_match WHERE name = ?";
+        } else if (negativeMatch.getName() != null)
+            sql = "SELECT * FROM ldf.negative_match WHERE name = ?";
         else
             throw new IllegalArgumentException("Positive match object is missing mandatory parameters");
 
@@ -89,18 +89,18 @@ public class PositiveMatchDAO {
             PreparedStatement pstmt = con.prepareStatement(sql)) {
 
             if (useId)
-                pstmt.setInt(1, positiveMatch.getId());
+                pstmt.setInt(1, negativeMatch.getId());
             else
-                pstmt.setString(1, positiveMatch.getName());
+                pstmt.setString(1, negativeMatch.getName());
 
             rs = pstmt.executeQuery();
 
             while (rs.next()){
-                positiveMatch.withId(rs.getInt(1));
-                positiveMatch.withName(rs.getString(2));
+                negativeMatch.withId(rs.getInt(1));
+                negativeMatch.withName(rs.getString(2));
             }
 
-            return Optional.ofNullable(positiveMatch);
+            return Optional.ofNullable(negativeMatch);
         }catch (SQLException e){
             System.out.println(e.getMessage());
             return null;
