@@ -1,6 +1,5 @@
 package com.localdealfinder.database;
 
-import com.localdealfinder.model.Advert;
 import com.localdealfinder.model.PositiveMatch;
 import com.localdealfinder.model.User;
 
