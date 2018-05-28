@@ -6,8 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
 
 import static junit.framework.TestCase.assertTrue;
 
@@ -25,10 +23,9 @@ public class TestUserAdvertJnDAO {
 
     @Test
     public void testReadAllUserAdvertsSuccess() throws SQLException {
-        Optional<List<Advert>> advertsOptional = userAdvertJnDAO.readAll(new User().withId(1));
+        User user = userAdvertJnDAO.readAll(new User().withId(1));
 
-        assertTrue(advertsOptional.isPresent());
-        assertTrue(advertsOptional.get().size()==1);
+        assertTrue(user.getAdverts().size()==1);
     }
 
     @Test

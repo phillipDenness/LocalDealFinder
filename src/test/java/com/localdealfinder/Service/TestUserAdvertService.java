@@ -1,12 +1,8 @@
 package com.localdealfinder.Service;
 
-import com.localdealfinder.model.Advert;
 import com.localdealfinder.model.User;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
-import java.util.Optional;
 
 import static junit.framework.TestCase.assertTrue;
 
@@ -26,8 +22,8 @@ public class TestUserAdvertService {
 
     @Test
     public void testReadAllUserAdvertsSuccess() {
-        Optional<List<Advert>> userAdverts = userAdvertService.readAll(1);
-        assertTrue(userAdverts.isPresent());
+        User user = userAdvertService.readAll(1);
+        assertTrue(user.getAdverts().size()==1);
     }
 
     @Test
