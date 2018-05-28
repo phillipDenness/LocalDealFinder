@@ -4,18 +4,16 @@ import com.localdealfinder.model.Advert;
 import com.localdealfinder.model.User;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 public class UserAdvertJnDAO {
 
-    public Optional<List<Advert>> readAll(User user) throws SQLException {
-        String sql = "SELECT *" +
-                " FROM ldf.user_advert_jn" +
-                " WHERE user_id = ?";
+    public User readAll(User user) throws SQLException {
+        String sql = "SELECT user.user_id, alias, advert.advert_id, advert_title, advert_price, advert_link" +
+                    " FROM ldf.user_advert_jn" +
+                    " JOIN ldf.user on user_advert_jn.user_id = ldf.user.user_id" +
+                    " JOIN ldf.advert on user_advert_jn.advert_id = advert.advert_id" +
+                    " WHERE user.user_id = ?" ;
 
-        List<Advert> adverts = null;
         ResultSet rs = null;
         try(Connection con = ConnectionManager.getConnection();
             PreparedStatement pstmt = con.prepareStatement(sql)){
@@ -24,25 +22,22 @@ public class UserAdvertJnDAO {
             rs = pstmt.executeQuery();
 
             if(rs.next()){
-                adverts = new ArrayList<>();
+                user.withAlias(rs.getString("user_id"));
                 rs.beforeFirst();
             }
 
             while(rs.next()){
-                AdvertDAO advertDAO = new AdvertDAO();
-
-                Advert advert = new Advert().withId(rs.getInt("advert_id"));
-                Optional<Advert> advertOptional = advertDAO.read(advert);
-
-                if(advertOptional.isPresent())
-                    adverts.add(advertOptional.get());
+                user.withAdvert(new Advert().withId(rs.getInt("advert_id"))
+                        .withTitle(rs.getString("advert_title"))
+                        .withPrice(rs.getDouble("advert_price"))
+                        .withLink(rs.getString("advert_link")));
             }
 
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }finally {
             rs.close();
-            return Optional.ofNullable(adverts);
+            return user;
         }
     }
 
