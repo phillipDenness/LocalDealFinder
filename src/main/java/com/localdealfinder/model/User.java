@@ -9,6 +9,13 @@ public class User {
 
     private List<Advert> adverts = new ArrayList<>();
 
+    private List<PositiveMatch> positiveMatches = new ArrayList<>();
+
+    public User withPositiveMatch(PositiveMatch positiveMatch){
+        positiveMatches.add(positiveMatch);
+        return this;
+    }
+
     public User withAdvert(Advert advert){
         adverts.add(advert);
         return this;
@@ -39,5 +46,9 @@ public class User {
 
     public List<Advert> getAdverts(){
         return adverts;
+    }
+
+    public List<PositiveMatch> getPositiveMatches(){
+        return positiveMatches;
     }
 }
