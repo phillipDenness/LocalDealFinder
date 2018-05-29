@@ -3,20 +3,19 @@ package com.localdealfinder.Service;
 import com.localdealfinder.database.SearchPositiveMatchJnDAO;
 import com.localdealfinder.model.PositiveMatch;
 import com.localdealfinder.model.Search;
-import com.localdealfinder.model.User;
 
 import java.sql.SQLException;
 
-public class UserPositiveMatchService {
-    private static final UserPositiveMatchService INSTANCE = new UserPositiveMatchService();
+public class SearchPositiveMatchService {
+    private static final SearchPositiveMatchService INSTANCE = new SearchPositiveMatchService();
 
     private SearchPositiveMatchJnDAO dao;
 
-    private UserPositiveMatchService() {
+    private SearchPositiveMatchService() {
         this.dao = new SearchPositiveMatchJnDAO();
     }
 
-    public static UserPositiveMatchService getInstance() {
+    public static SearchPositiveMatchService getInstance() {
         return INSTANCE;
     }
 

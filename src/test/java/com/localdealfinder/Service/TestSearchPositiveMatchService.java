@@ -7,11 +7,11 @@ import org.junit.Test;
 import static junit.framework.TestCase.assertTrue;
 
 public class TestSearchPositiveMatchService {
-    private UserPositiveMatchService service;
+    private SearchPositiveMatchService service;
 
     @Before
     public void setUp() {
-        service = UserPositiveMatchService.getInstance();
+        service = SearchPositiveMatchService.getInstance();
     }
 
     @Test

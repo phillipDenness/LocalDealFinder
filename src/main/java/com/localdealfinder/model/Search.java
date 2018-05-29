@@ -65,8 +65,8 @@ public class Search {
         return negativeMatches;
     }
 
-    public Search withNegativeMatches(List<NegativeMatch> negativeMatches) {
-        this.negativeMatches = negativeMatches;
+    public Search withNegativeMatch(NegativeMatch negativeMatch) {
+        negativeMatches.add(negativeMatch);
         return this;
     }
 
