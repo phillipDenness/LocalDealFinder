@@ -8,11 +8,10 @@ public class User {
     private String alias;
 
     private List<Advert> adverts = new ArrayList<>();
+    private List<Search> searches = new ArrayList<>();
 
-    private List<PositiveMatch> positiveMatches = new ArrayList<>();
-
-    public User withPositiveMatch(PositiveMatch positiveMatch){
-        positiveMatches.add(positiveMatch);
+    public User withSearches(Search search){
+        searches.add(search);
         return this;
     }
 
@@ -48,7 +47,7 @@ public class User {
         return adverts;
     }
 
-    public List<PositiveMatch> getPositiveMatches(){
-        return positiveMatches;
+    public List<Search> getSearches(){
+        return searches;
     }
 }

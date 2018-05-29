@@ -1,37 +1,41 @@
 package com.localdealfinder.database;
 
 import com.localdealfinder.model.PositiveMatch;
-import com.localdealfinder.model.User;
+import com.localdealfinder.model.Search;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserPositiveMatchJnDAO {
-    public User readAll(User user) throws SQLException {
+public class SearchPositiveMatchJnDAO {
+    public Search readAll(Search search) throws SQLException {
 
-        String sql = "SELECT user.user_id, alias, positive_match.positive_id, positive_match.name" +
-                " FROM ldf.user_positive_match_jn" +
-                " JOIN ldf.user on user_positive_match_jn.user_id = ldf.user.user_id" +
-                " JOIN ldf.positive_match on user_positive_match_jn.positive_id = positive_match.positive_id" +
-                " WHERE ldf.user.user_id = ?" ;
+        String sql = "SELECT search.search_id, search.name, location, min_price, max_price, positive_match.positive_id, positive_match.name" +
+                " from ldf.search_positive_match_jn spm" +
+                " join ldf.search on spm.search_id = search.search_id" +
+                " join ldf.positive_match on spm.positive_id = positive_match.positive_id" +
+                " where ldf.spm.search_id = ?";
 
         ResultSet rs = null;
         try(Connection con = ConnectionManager.getConnection();
             PreparedStatement pstmt = con.prepareStatement(sql)){
 
-            pstmt.setInt(1, user.getId());
+            pstmt.setInt(1, search.getId());
             System.out.println(pstmt);
             rs = pstmt.executeQuery();
 
             if(rs.next()){
-                user.withAlias(rs.getString("user_id"));
+                search.withId(rs.getInt(1));
+                search.withName(rs.getString(2));
+                search.withLocation(rs.getString(3));
+                search.withMinPrice(rs.getDouble(4));
+                search.withMaxPrice(rs.getDouble(5));
                 rs.beforeFirst();
             }
 
             while(rs.next()){
-                user.withPositiveMatch(new PositiveMatch().withId(rs.getInt("positive_id"))
+                search.withPositiveMatch(new PositiveMatch().withId(rs.getInt("positive_id"))
                         .withName(rs.getString("name")));
             }
 
@@ -39,20 +43,19 @@ public class UserPositiveMatchJnDAO {
             System.out.println(e.getMessage());
         }finally {
             rs.close();
-            return user;
+            return search;
         }
     }
 
+    public boolean create(Search search, PositiveMatch positiveMatch){
 
-    public boolean create(User user, PositiveMatch positiveMatch){
-
-        String sql = "INSERT INTO ldf.user_positive_match_jn(user_id, positive_id) " +
+        String sql = "INSERT INTO ldf.search_positive_match_jn(search_id, positive_id) " +
                 " VALUES(?,?)";
 
         try(Connection con = ConnectionManager.getConnection();
             PreparedStatement pstmt = con.prepareStatement(sql)){
 
-            pstmt.setInt(1, user.getId());
+            pstmt.setInt(1, search.getId());
             pstmt.setInt(2, positiveMatch.getId());
             int affectedRows = pstmt.executeUpdate();
             return (affectedRows == 1);
@@ -63,15 +66,15 @@ public class UserPositiveMatchJnDAO {
         }
     }
 
-    public boolean delete(User user, PositiveMatch positiveMatch) {
+    public boolean delete(Search search, PositiveMatch positiveMatch) {
 
-        String sql = "DELETE FROM ldf.user_positive_match_jn" +
-                " WHERE user_id = ? AND positive_id = ?";
+        String sql = "DELETE FROM ldf.search_positive_match_jn" +
+                " WHERE search_id = ? AND positive_id = ?";
 
         try(Connection con = ConnectionManager.getConnection();
             PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-            pstmt.setInt(1, user.getId());
+            pstmt.setInt(1, search.getId());
             pstmt.setInt(2, positiveMatch.getId());
             int affectedRows = pstmt.executeUpdate();
             return (affectedRows == 1);
