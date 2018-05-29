@@ -15,10 +15,8 @@ public class User {
         return this;
     }
 
-    private List<PositiveMatch> positiveMatches = new ArrayList<>();
-
-    public User withPositiveMatch(PositiveMatch positiveMatch){
-        positiveMatches.add(positiveMatch);
+    public User withSearches(Search search){
+        searches.add(search);
         return this;
     }
 
