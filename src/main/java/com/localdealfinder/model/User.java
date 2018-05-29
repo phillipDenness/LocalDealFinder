@@ -15,6 +15,13 @@ public class User {
         return this;
     }
 
+    private List<PositiveMatch> positiveMatches = new ArrayList<>();
+
+    public User withPositiveMatch(PositiveMatch positiveMatch){
+        positiveMatches.add(positiveMatch);
+        return this;
+    }
+
     public User withAdvert(Advert advert){
         adverts.add(advert);
         return this;
@@ -46,7 +53,6 @@ public class User {
     public List<Advert> getAdverts(){
         return adverts;
     }
-
     public List<Search> getSearches(){
         return searches;
     }
