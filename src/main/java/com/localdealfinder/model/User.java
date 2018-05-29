@@ -46,7 +46,6 @@ public class User {
     public List<Advert> getAdverts(){
         return adverts;
     }
-
     public List<Search> getSearches(){
         return searches;
     }
