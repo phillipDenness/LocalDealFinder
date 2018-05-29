@@ -1,0 +1,1 @@
+insert into ldf.search values(1, "test_search", "london", 10, 100);
