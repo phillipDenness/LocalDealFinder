@@ -15,6 +15,11 @@ public class User {
         return this;
     }
 
+    public User withSearches(Search search){
+        searches.add(search);
+        return this;
+    }
+
     public User withAdvert(Advert advert){
         adverts.add(advert);
         return this;
