@@ -1,20 +1,19 @@
 package com.localdealfinder.Service;
 
-import com.localdealfinder.database.UserPositiveMatchJnDAO;
+import com.localdealfinder.database.SearchPositiveMatchJnDAO;
 import com.localdealfinder.model.PositiveMatch;
+import com.localdealfinder.model.Search;
 import com.localdealfinder.model.User;
 
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
 
 public class UserPositiveMatchService {
     private static final UserPositiveMatchService INSTANCE = new UserPositiveMatchService();
 
-    private UserPositiveMatchJnDAO dao;
+    private SearchPositiveMatchJnDAO dao;
 
     private UserPositiveMatchService() {
-        this.dao = new UserPositiveMatchJnDAO();
+        this.dao = new SearchPositiveMatchJnDAO();
     }
 
     public static UserPositiveMatchService getInstance() {
@@ -22,23 +21,21 @@ public class UserPositiveMatchService {
     }
 
 
-    public boolean create(int user_id, int positive_id){
-        return dao.create(new User().withId(user_id), new PositiveMatch().withId(positive_id));
+    public boolean create(int search_id, int positive_id){
+        return dao.create(new Search().withId(search_id), new PositiveMatch().withId(positive_id));
     }
 
-    public User readAll(int user_id){
-
-        Optional<List<PositiveMatch>> positiveMatches = null;
-        User user = new User().withId(user_id);
+    public Search readAll(int search_id){
+        Search search = new Search().withId(search_id);
         try {
-            user = dao.readAll(user);
+            search = dao.readAll(search);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return user;
+        return search;
     }
 
-    public boolean delete(int user_id, int positive_id){
-        return dao.delete(new User().withId(user_id),new PositiveMatch().withId(positive_id));
+    public boolean delete(int search_id, int positive_id){
+        return dao.delete(new Search().withId(search_id),new PositiveMatch().withId(positive_id));
     }
 }

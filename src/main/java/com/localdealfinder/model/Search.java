@@ -1,14 +1,15 @@
 package com.localdealfinder.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Search {
 
     private int id;
 
-    private List<PositiveMatch> positiveMatches;
-    private List<NegativeMatch> negativeMatches;
-    private List<Advert> adverts;
+    private List<PositiveMatch> positiveMatches = new ArrayList();
+    private List<NegativeMatch> negativeMatches = new ArrayList();
+    private List<Advert> adverts = new ArrayList();
 
     private String name;
     private String location;
@@ -55,8 +56,8 @@ public class Search {
         return positiveMatches;
     }
 
-    public Search withPositiveMatches(List<PositiveMatch> positiveMatches) {
-        this.positiveMatches = positiveMatches;
+    public Search withPositiveMatch(PositiveMatch positiveMatch) {
+        positiveMatches.add(positiveMatch);
         return this;
     }
 
