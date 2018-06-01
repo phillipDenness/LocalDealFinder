@@ -9,8 +9,5 @@
         <module name="localdealfinder" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="localdealfinder" target="8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

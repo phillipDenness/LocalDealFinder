@@ -53,3 +53,4 @@ fabric.properties
 \.idea/codeStyles/Project\.xml
 
 target/
+\.idea/\.name
