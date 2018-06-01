@@ -1,38 +1,42 @@
 package com.localdealfinder.database;
 
 import com.localdealfinder.model.PositiveMatch;
+import com.localdealfinder.model.Search;
 import com.localdealfinder.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-public class UserPositiveMatchJnDAO {
+public class UserSearchJnDAO {
     public User readAll(User user) throws SQLException {
 
-        String sql = "SELECT user.user_id, alias, positive_match.positive_id, positive_match.name" +
-                " FROM ldf.user_positive_match_jn" +
-                " JOIN ldf.user on user_positive_match_jn.user_id = ldf.user.user_id" +
-                " JOIN ldf.positive_match on user_positive_match_jn.positive_id = positive_match.positive_id" +
-                " WHERE ldf.user.user_id = ?" ;
+        String sql = "SELECT user.user_id, alias, search.search_id, search.name, location, min_price, max_price" +
+        " FROM ldf.user_search_jn" +
+        " JOIN ldf.user on user.user_id = user_search_jn.user_id" +
+        " JOIN ldf.search on search.search_id = user_search_jn.search_id" +
+        " WHERE alias = ?";
 
         ResultSet rs = null;
         try(Connection con = ConnectionManager.getConnection();
             PreparedStatement pstmt = con.prepareStatement(sql)){
 
-            pstmt.setInt(1, user.getId());
-            System.out.println(pstmt);
+            pstmt.setString(1, user.getAlias());
             rs = pstmt.executeQuery();
 
             if(rs.next()){
-                user.withAlias(rs.getString("user_id"));
+                user.withId(rs.getInt("user_id"));
                 rs.beforeFirst();
             }
 
             while(rs.next()){
-                user.withPositiveMatch(new PositiveMatch().withId(rs.getInt("positive_id"))
-                        .withName(rs.getString("name")));
+                user.withSearch(new Search().withId(rs.getInt("search_id"))
+                .withName(rs.getString("name"))
+                .withLocation(rs.getString("location"))
+                .withMinPrice(rs.getDouble("min_price"))
+                .withMaxPrice(rs.getDouble("max_price")));
             }
 
         }catch (SQLException e){
@@ -44,16 +48,16 @@ public class UserPositiveMatchJnDAO {
     }
 
 
-    public boolean create(User user, PositiveMatch positiveMatch){
+    public boolean create(User user, Search search){
 
-        String sql = "INSERT INTO ldf.user_positive_match_jn(user_id, positive_id) " +
-                " VALUES(?,?)";
+        String sql = "INSERT INTO ldf.user_search_jn " +
+                "values ((SELECT user_id FROM ldf.user WHERE alias = ?), ?)";
 
         try(Connection con = ConnectionManager.getConnection();
             PreparedStatement pstmt = con.prepareStatement(sql)){
 
-            pstmt.setInt(1, user.getId());
-            pstmt.setInt(2, positiveMatch.getId());
+            pstmt.setString(1, user.getAlias());
+            pstmt.setInt(2, search.getId());
             int affectedRows = pstmt.executeUpdate();
             return (affectedRows == 1);
 
@@ -63,17 +67,19 @@ public class UserPositiveMatchJnDAO {
         }
     }
 
-    public boolean delete(User user, PositiveMatch positiveMatch) {
+    public boolean delete(User user, Search search) {
 
-        String sql = "DELETE FROM ldf.user_positive_match_jn" +
-                " WHERE user_id = ? AND positive_id = ?";
+        String sql = " DELETE FROM ldf.user_search_jn" +
+                " WHERE user_id = (select user_id from ldf.user where alias = ?)" +
+                " AND search_id = ?";
 
         try(Connection con = ConnectionManager.getConnection();
             PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-            pstmt.setInt(1, user.getId());
-            pstmt.setInt(2, positiveMatch.getId());
+            pstmt.setString(1, user.getAlias());
+            pstmt.setInt(2, search.getId());
             int affectedRows = pstmt.executeUpdate();
+            user.withSearches(new ArrayList<>());
             return (affectedRows == 1);
 
         }catch (SQLException e){
