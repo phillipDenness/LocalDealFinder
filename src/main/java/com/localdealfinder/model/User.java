@@ -10,13 +10,13 @@ public class User {
     private List<Advert> adverts = new ArrayList<>();
     private List<Search> searches = new ArrayList<>();
 
-    public User withSearches(Search search){
+    public User withSearch(Search search){
         searches.add(search);
         return this;
     }
 
-    public User withSearches(Search search){
-        searches.add(search);
+    public User withSearches(List<Search> searches){
+        this.searches = searches;
         return this;
     }
 
