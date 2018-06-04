@@ -32,11 +32,11 @@ public class AdvertDAO {
                         .withLink(rs.getString(4));
                 adverts.add(advert);
             }
+            rs.close();
 
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }finally {
-            rs.close();
             return Optional.ofNullable(adverts);
         }
     }
