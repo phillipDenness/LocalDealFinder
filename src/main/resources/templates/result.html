@@ -1,13 +1,39 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Handling Form Submission</title>
+    <title>Local Deal Finder</title>
+    <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+          rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>Result</h1>
-<p th:text="'id: ' + ${greeting.id}" />
-<p th:text="'content: ' + ${greeting.content}" />
-<a href="/greeting">Submit another message</a>
+<h1>Search adverts</h1>
+
+<div th:if="${adverts != null}">
+    <table th:object="${adverts}" id="advertTable" class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Price</th>
+                <th scope="col">Link</th>
+            </tr>
+            </thead>
+        <tbody>
+        <tr th:each="advert :${adverts}">
+            <td  th:text="${advert.getId()}"></td>
+            <td  th:text="${advert.getTitle()}"></td>
+            <td  th:text="${advert.getPrice()}"></td>
+            <td>  <a th:href="${advert.getLink()}"> Link </a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<a href="/greeting">Submit another search</a>
+
+<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 </body>
 </html>
