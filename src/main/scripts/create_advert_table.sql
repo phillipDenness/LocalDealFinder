@@ -5,3 +5,6 @@ CREATE TABLE `ldf`.`advert` (
   `advert_link` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`advert_id`),
   UNIQUE INDEX `advert_link_UNIQUE` (`advert_link` ASC));
+
+ALTER TABLE `ldf`.`advert`
+ADD COLUMN `timestamp` DATETIME NULL AFTER `advert_link`;

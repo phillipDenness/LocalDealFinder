@@ -15,16 +15,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class HelloController {
+public class AdvertController {
 
-    @GetMapping("/greeting")
-    public String greetingForm(Model model) {
-        model.addAttribute("greeting", new Greeting());
-        return "greeting";
+    @GetMapping("/adverts")
+    public String advertForm(Model model) {
+        return "advertform";
     }
 
-    @PostMapping("/greeting")
-    public String greetingSubmit(Model model) {
+    @PostMapping("/adverts")
+    public String advertSubmit(Model model) {
         List<Advert> adverts = null;
         AdvertService service = AdvertService.getInstance();
         Optional<List<Advert>> advertsOpt = service.readAll();
@@ -32,6 +31,6 @@ public class HelloController {
             adverts = advertsOpt.get();
         }
         model.addAttribute("adverts", adverts);
-        return "result";
+        return "listadverts";
     }
 }
