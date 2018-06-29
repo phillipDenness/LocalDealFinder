@@ -8,6 +8,17 @@
 </head>
 <body>
 <h1>My searches</h1>
+
+<form action="#" th:action="@{/search-form}" method="get">
+    <p><input type="submit" value="Create search" /></p>
+</form>
+
+
+<form action="#" th:action="@{/searches}" method="get">
+    <p><input type="submit" value="View searches" /></p>
+</form>
+
+
 <form action="#" th:action="@{/adverts}" method="post">
     <p>Test search: <input type="submit" value="View Adverts" /></p>
 </form>

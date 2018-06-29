@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Local Deal Finder</title>
+    <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+          rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>List searches</h1>
+
+<div th:if="${searches != null}">
+    <table th:object="${searches}" id="searchTable" class="table">
+        <thead>
+        <tr>
+            <th scope="col">Search name</th>
+            <th scope="col">Location</th>
+            <th scope="col">Keywords</th>
+            <th scope="col">Blocked words</th>
+            <th scope="col">Min price</th>
+            <th scope="col">Max search</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="search :${searches}">
+            <td  th:text="${search.getName()}"></td>
+            <td  th:text="${search.getLocation()}"></td>
+            <td  th:text="${search.getPositiveMatches()}"></td>
+            <td  th:text="${search.getNegativeMatches()}"></td>
+            <td  th:text="${search.getMinPrice()}"></td>
+            <td  th:text="${search.getMaxPrice()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<a href="/search-form">Create a new search</a>
+
+<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</body>
+</html>
