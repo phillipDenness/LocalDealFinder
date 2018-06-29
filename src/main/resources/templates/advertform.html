@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Local Deal Finder</title>
+    <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+          rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>My searches</h1>
+
+<form action="#" th:action="@{/search-form}" method="get">
+    <p><input type="submit" value="Create search" /></p>
+</form>
+
+
+<form action="#" th:action="@{/searches}" method="get">
+    <p><input type="submit" value="View searches" /></p>
+</form>
+
+
+<form action="#" th:action="@{/adverts}" method="post">
+    <p>Test search: <input type="submit" value="View Adverts" /></p>
+</form>
+</body>
+</html>

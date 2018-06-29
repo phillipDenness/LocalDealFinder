@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Local Deal Finder</title>
+    <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+          rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Create a search</h1>
+
+<form action="#" th:action="@{/submit-search}" th:object="${search}" method="post">
+    <p>name: <input type="text" th:field="*{name}" /></p>
+    <p>Location: <input type="text" th:field="*{location}" /></p>
+    <p>Positve keyword: <input type="text" th:field="*{positiveMatches}" /></p>
+    <p>Min price: <input type="text" th:field="*{minPrice}" /></p>
+    <p>Max price: <input type="text" th:field="*{maxPrice}" /></p>
+    <p> <input type="submit" value="Submit search" /></p>
+</form>
+</body>
+</html>

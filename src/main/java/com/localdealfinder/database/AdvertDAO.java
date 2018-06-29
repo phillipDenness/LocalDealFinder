@@ -4,6 +4,7 @@ import com.localdealfinder.model.Advert;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,14 +30,15 @@ public class AdvertDAO {
                 Advert advert = new Advert().withId(rs.getInt(1))
                         .withTitle(rs.getString(2))
                         .withPrice(rs.getInt(3))
-                        .withLink(rs.getString(4));
+                        .withLink(rs.getString(4))
+                        .withTimestamp(rs.getTimestamp(5));
                 adverts.add(advert);
             }
+            rs.close();
 
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }finally {
-            rs.close();
             return Optional.ofNullable(adverts);
         }
     }
@@ -44,8 +46,8 @@ public class AdvertDAO {
 
     public boolean create(Advert advert){
 
-        String sql = "INSERT INTO ldf.advert(advert_title, advert_price, advert_link) " +
-                " VALUES(?,?,?)";
+        String sql = "INSERT INTO ldf.advert(advert_title, advert_price, advert_link, timestamp) " +
+                " VALUES(?,?,?,?)";
 
         try(Connection con = ConnectionManager.getConnection();
             PreparedStatement pstmt = con.prepareStatement(sql)){
@@ -53,6 +55,11 @@ public class AdvertDAO {
             pstmt.setString(1, advert.getTitle());
             pstmt.setDouble(2, advert.getPrice());
             pstmt.setString(3, advert.getLink());
+
+            Calendar cal = Calendar.getInstance();
+            java.sql.Timestamp timestamp = new java.sql.Timestamp(cal.getTimeInMillis());
+            pstmt.setTimestamp(4, timestamp);
+
             int affectedRows = pstmt.executeUpdate();
             return (affectedRows == 1);
 

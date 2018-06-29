@@ -6,29 +6,30 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
 
-public class TestUserPositiveMatchService {
-    private UserPositiveMatchService userPositiveMatchService;
+public class TestUserSearchService {
+    private UserSearchService service;
 
     @Before
     public void setUp() {
-        userPositiveMatchService = UserPositiveMatchService.getInstance();
+        service = UserSearchService.getInstance();
     }
 
     @Test
     public void testCreateUserPositiveMatchSuccess() {
-        boolean success = userPositiveMatchService.create(1, 12);
+        boolean success = service.create("test_user", 3);
         assertTrue(success);
     }
 
     @Test
     public void testReadAllUserPositiveMatchSuccess() {
-        User user = userPositiveMatchService.readAll(2);
-        assertTrue(user.getPositiveMatches().size()==1);
+        User user = service.readAll("test_user");
+        System.out.println(user.getSearches().size());
+        assertTrue(user.getSearches().size()==2);
     }
 
     @Test
     public void testDeleteUserPositiveMatchSuccess() {
-        boolean success = userPositiveMatchService.delete(1,12);
+        boolean success = service.delete("test_user",3);
         assertTrue(success);
     }
 }

@@ -17,7 +17,7 @@ public class TestSearchPositiveMatchJnDAO {
     @Before
     public void setup(){
         dao = new SearchPositiveMatchJnDAO();
-        positiveMatch = new PositiveMatch().withId(8);
+        positiveMatch = new PositiveMatch().withId(6);
         search = new Search().withId(1);
     }
 

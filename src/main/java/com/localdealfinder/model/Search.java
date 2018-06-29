@@ -1,8 +1,11 @@
 package com.localdealfinder.model;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class Search {
 
     private int id;
@@ -56,6 +59,10 @@ public class Search {
         return positiveMatches;
     }
 
+    public void setPositiveMatches(List<PositiveMatch> positiveMatches){
+        this.positiveMatches = positiveMatches;
+    }
+
     public Search withPositiveMatch(PositiveMatch positiveMatch) {
         positiveMatches.add(positiveMatch);
         return this;
@@ -63,6 +70,10 @@ public class Search {
 
     public List<NegativeMatch> getNegativeMatches() {
         return negativeMatches;
+    }
+
+    public void setNegativeMatches(List<NegativeMatch> negativeMatches){
+        this.negativeMatches=negativeMatches;
     }
 
     public Search withNegativeMatch(NegativeMatch negativeMatch) {
